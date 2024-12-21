@@ -2,12 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { TbCircuitDiode } from "react-icons/tb";
 import { useImages } from '../context/ImageContext';
 import { GeneratedImage } from '../types';
 import ImageGrid from './ImageGrid';
 import { v4 as uuidv4 } from 'uuid';
-import Navigation from './Navigation';
 import Header from './Header';
 
 interface ImageGeneratorProps {
@@ -18,8 +16,7 @@ export default function ImageGenerator({ generateImage }: ImageGeneratorProps) {
     const [inputText, setInputText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [allImages, setAllImages] = useState<GeneratedImage[]>([]);
-    const [error, setError] = useState<string | null>(null);
-    const { toggleLike, toggleSave, likedImages, savedImages } = useImages();
+    const { likedImages, savedImages } = useImages();
 
     // Load images from localStorage on mount
     useEffect(() => {
@@ -35,7 +32,6 @@ export default function ImageGenerator({ generateImage }: ImageGeneratorProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        setError(null);
 
         try {
             const result = await generateImage(inputText);
@@ -82,12 +78,9 @@ export default function ImageGenerator({ generateImage }: ImageGeneratorProps) {
                 });
                 
                 setInputText("");
-            } else {
-                throw new Error("No image URL received");
             }
-        } catch (error) {
-            console.error("Error:", error);
-            setError(error instanceof Error ? error.message : "Failed to generate image");
+        } catch (err) {
+            console.error("Error:", err);
         } finally {
             setIsLoading(false);
         }
