@@ -61,7 +61,7 @@ class Model:
         
         api_key = request.headers.get("X-API-KEY")
 
-        if api_key != self.CLIENT_TOKEN_1:
+        if api_key != self.API_KEY:
             raise HTTPException(status_code=401, detail="Unauthorized")
 
         image = self.pipe(prompt, num_inference_steps=1, guidance_scale=0.0).images[0]

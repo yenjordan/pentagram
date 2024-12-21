@@ -6,38 +6,31 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { text } = body;
-
-    // TODO: Call your Image Generation API here
-    // For now, we'll just echo back the text
-
+    
     const url = new URL("https://jordan--sd-demo-model-generate-modal-run/");
-
-    url.searchParams.set("prompt", text)
-
+    url.searchParams.set("prompt", text);
     console.log("Request URL:", url.toString());
 
     const response = await fetch(url.toString(), {
       method: "GET",
       headers: {
         "X-API-Key": process.env.CLIENT_TOKEN_1 || "",
-        accept: "image/jpeg",
+        "accept": "image/jpeg"
       },
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("API Response:", errorText);
+      console.error("Error Message:", errorText);
       throw new Error(`HTTP Error! status: ${response.status}, message: ${errorText}`);
     }
 
     const imageBuffer = await response.arrayBuffer();
-
     const fileName = `${crypto.randomUUID()}.jpg`;
-
+    
     const blob = await put(fileName, imageBuffer, {
       access: "public",
-      contentType: "image/jpeg",
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      contentType: "image/jpeg"
     });
 
     return NextResponse.json({
@@ -45,6 +38,7 @@ export async function POST(request: Request) {
       imageUrl: blob.url,
     });
   } catch (error) {
+    console.error("Error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to process request" },
       { status: 500 }
