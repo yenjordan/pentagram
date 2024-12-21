@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     const response = await fetch(url.toString(), {
       method: "GET",
       headers: {
-        "X-API-Key": process.env.API_KEY || "",
+        "X-API-Key": process.env.CLIENT_TOKEN_1 || "",
         accept: "image/jpeg",
       },
     });
