@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Live Site
 
-[](https://pentagram-chi.vercel.app/)
+[https://pentagram-chi.vercel.app/](https://pentagram-chi.vercel.app/)
 
 
 ## Learn More
