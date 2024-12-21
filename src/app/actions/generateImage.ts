@@ -1,22 +1,44 @@
 "use server";
 
+import { put } from "@vercel/blob";
+import crypto from "crypto";
+
 export async function generateImage(text: string) {
   try {
-    const response = await fetch('/api/generate-image', {
-      method: "POST",
+    if (!process.env.MODAL_API_URL || !process.env.CLIENT_TOKEN_1) {
+      throw new Error("Missing environment variables");
+    }
+
+    // Make request directly to Modal API
+    const url = new URL(process.env.MODAL_API_URL);
+    url.searchParams.set("prompt", text);
+
+    const response = await fetch(url.toString(), {
+      method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        "X-API-SECRET": process.env.API_SECRET || ""
+        "X-API-Key": process.env.CLIENT_TOKEN_1,
+        accept: "image/jpeg",
       },
-      body: JSON.stringify({ text })
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      console.error("API Response:", errorText);
+      throw new Error(`HTTP Error! status: ${response.status}`);
     }
 
-    const data = await response.json();
-    return data;
+    const imageBuffer = await response.arrayBuffer();
+    const fileName = `${crypto.randomUUID()}.jpg`;
+
+    const blob = await put(fileName, imageBuffer, {
+      access: "public",
+      contentType: "image/jpeg",
+    });
+
+    return {
+      success: true,
+      imageUrl: blob.url,
+    };
   } catch (error) {
     console.error("Server Error:", error);
     return {
