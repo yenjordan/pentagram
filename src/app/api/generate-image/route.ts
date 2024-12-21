@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { text } = body;
     
-    const url = new URL("https://jordan--sd-demo-model-generate-modal-run/");
+    const url = new URL("https://yenjordan--sd-demo-model-generate.modal.run/");
     url.searchParams.set("prompt", text);
     console.log("Request URL:", url.toString());
 
