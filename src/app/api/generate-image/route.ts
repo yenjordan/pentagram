@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       return NextResponse.json({error: "Unauthorized"}, {status: 401});
     }
 
-    const url = new URL("https://yenjordan--sd-demo-model-generate.modal.run/");
+    const url = new URL(process.env.MODAL_API_URL || "");
 
     url.searchParams.set("prompt", text)
 
