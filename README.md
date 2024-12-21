@@ -28,7 +28,9 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## [Live Site](https://pentagram-chi.vercel.app/)
+## Live Site
+
+[](https://pentagram-chi.vercel.app/)
 
 
 ## Learn More
