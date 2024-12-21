@@ -2,17 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { 
-    TbBulb,
-    TbSparkles,
-    TbCube,
-    TbFlask,
-    TbCpu,
-    TbHeart,
-    TbHeartFilled,
-    TbBookmark,
-    TbBookmarkFilled
-} from "react-icons/tb";
+import { TbCircuitDiode } from "react-icons/tb";
 import { useImages } from '../context/ImageContext';
 import { GeneratedImage } from '../types';
 import ImageGrid from './ImageGrid';

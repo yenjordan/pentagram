@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { TbHeart, TbHeartFilled, TbBookmark, TbBookmarkFilled } from 'react-icons/tb';
 import { GeneratedImage } from '../types';
 import { useImages } from '../context/ImageContext';
+import Image from 'next/image';
 
 interface ImageCardProps {
     image: GeneratedImage;
@@ -24,10 +25,12 @@ export default function ImageCard({ image }: ImageCardProps) {
         >
             <div className="relative bg-gray-900 rounded-t-xl overflow-hidden">
                 <div className="aspect-square relative overflow-hidden">
-                    <img
+                    <Image
                         src={image.url}
                         alt={image.prompt}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                 </div>
             </div>
