@@ -1,4 +1,4 @@
-# Pentagram: Instagram, but with AI Images
+# Pentagram: Realtime Image Diffusion
 
 ## Getting Started
 
